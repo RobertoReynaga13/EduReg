@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Carrera</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+        }
+        button {
+            margin-top: 15px;
+            padding: 10px 15px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Registro de Carrera</h1>
+    <form action="/carreras" method="POST">
+    <input type="hidden" id="OrganizadorId" name="OrganizadorId" />
+    <input type="hidden" id="UbicacionId" name="UbicacionId" />
+    <input type="hidden" id="Fecha" name="Fecha" />
+
+        <label for="nombreEvento">Título:</label>
+        <input type="text" name="Titulo" required>
+
+        <textarea name="Descripcion"></textarea>
+
+        <div id="htmlEditorContainer"></div>
+
+        <div class="dx-field">
+          <div class="dx-field-label">Fecha:</div>
+          <div class="dx-field-value">
+            <div id="FechaInput"></div>
+          </div>
+        </div>
+
+        <label for="ubicacion">Ubicación:</label>
+        <div id="ubicacion" name="UbicacionId"></div>
+
+        <label for="organizador">Organizador:</label>
+        <div id="organizador" name="OrganizadorId"></div>
+
+        <div>
+            <div id="checkbox"></div>
+            <input type="hidden" id="Publicado" name="Publicado">
+        </div>
+
+        <button type="submit">Registrar Carrera</button>
+    </form>
+
+    <script>
+        $(document).ready(function() {
+/*
+            let popupInstance;
+            const editorInstance = $('#htmlEditorContainer').dxHtmlEditor({
+              toolbar: {
+                items: [
+                'undo', 'redo', 'separator',
+                {
+                  name: 'header',
+                  acceptedValues: [false, 1, 2, 3, 4, 5],
+                  options: { inputAttr: { 'aria-label': 'Header' } },
+                  }, 'separator',
+                  'bold', 'italic', 'strike', 'underline', 'separator',
+                  'alignLeft', 'alignCenter', 'alignRight', 'alignJustify', 'separator',
+                  {
+                    widget: 'dxButton',
+                    options: {
+                      text: 'Show markup',
+                      stylingMode: 'text',
+                      onClick()
+                      {
+                        popupInstance.show();
+                        },},},],},
+            }).dxHtmlEditor('instance');
+*/
+            DevExpress.localization.locale('es');
+
+             $('#FechaInput').dxDateBox({
+              type: 'date',
+              displayFormat: 'yyyy-MM-dd',
+              valueFormat: "yyyy-MM-dd",
+              value: new Date(),
+              inputAttr: { 'aria-label': 'Date' },
+              onValueChanged: function(e) {
+              const formattedDate = DevExpress.localization.formatDate(e.value, 'yyyy-MM-dd');
+              $("#Fecha").val(formattedDate);
+              }
+            });
+
+            $("#Fecha").val(DevExpress.localization.formatDate(new Date(), 'yyyy-MM-dd'));
+
+            const organizerData = {{{json organizerData}}};
+            const locationData = {{{json locationData}}};
+
+            $("#organizador").dxSelectBox({
+              dataSource: organizerData,
+              valueExpr: "Id",
+              displayExpr: "Description",
+              placeholder: "Selecciona una opción",
+              showClearButton: true,
+              onValueChanged: function(e) {
+                $("#OrganizadorId").val(e.value);
+                }
+            });
+
+            $("#ubicacion").dxSelectBox({
+                dataSource: locationData,
+                valueExpr: "Id",
+                displayExpr: "Description",
+                placeholder: "Selecciona una opción",
+                showClearButton: true,
+                onValueChanged: function(e) {
+                $("#UbicacionId").val(e.value);
+                }
+            });
+
+            $("#checkbox").dxCheckBox({
+                value: false,
+                text: "¿publicar?",
+                onValueChanged: function(e) {
+                    $("#Publicado").val(e.value ? 1 : 0);
+                }
+            });
+
+
+
+
+/*
+            popupInstance = $('#popup').dxPopup({
+            showTitle: true,
+            title: 'Markup',
+            showCloseButton: true,
+            onShowing() {
+              $('.value-content').text(editorInstance.option('value'));
+            },
+            }).dxPopup('instance');*/
+        });
+    </script>
+</body>
+</html>

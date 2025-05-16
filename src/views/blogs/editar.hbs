@@ -1,0 +1,95 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Ponente</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        label {
+            font-size: 16px;
+            display: block;
+            margin-top: 10px;
+        }
+
+        input,
+        textarea,
+        .dx-field-value {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 10px 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Editar Ponente</h2>
+    <form id="editarBlogForm" action="/blogs/editar/{{blog.PonenteID}}" method="POST">
+        <div class="form-group">
+            <label for="Especialidad">Especialidad:</label>
+            <div id="EspecialidadInput"></div>
+            <input type="hidden" id="Especialidad" name="Especialidad" required>
+        </div>
+
+        <div class="form-group">
+            <label for="TituloPonencias">TituloPonencias:</label>
+            <div id="TituloPonenciasInput"></div>
+            <input type="hidden" id="TituloPonencias" name="TituloPonencias" required>
+        </div>
+
+        <div class="form-group">
+            <label for="NecesidadesEspecificas">NecesidadesEspecificas:</label>
+            <div id="NecesidadesEspecificasInput"></div>
+            <input type="hidden" id="NecesidadesEspecificas" name="NecesidadesEspecificas">
+        </div>
+
+        <div class="enviar">
+            <button type="submit" class="btn btn-azul">Editar Blog</button>
+        </div>
+    </form>
+
+    <script>
+$(function () {
+    DevExpress.localization.locale('es');
+    // Inicializa el input oculto con el valor actual del blog
+    $("#Especialidad").val("{{blog.Especialidad}}");
+    $("#TituloPonencias").val("{{blog.TituloPonencias}}");
+    $("#NecesidadesEspecificas").val("{{blog.NecesidadesEspecificas}}");
+
+    // Título
+    $("#EspecialidadInput").dxTextBox({
+        placeholder: "Especialidad",
+        value: "{{blog.Especialidad}}",
+        onValueChanged: function (e) {
+            $("#Especialidad").val(e.value);
+        }
+    });
+
+    // Descripción Corta
+    $("#TituloPonenciasInput").dxTextBox({
+        placeholder: "Descripción Corta",
+        value: "{{blog.TituloPonencias}}",
+        onValueChanged: function (e) {
+            $("#TituloPonencias").val(e.value);
+        }
+    });
+
+    // Descripción Larga
+    $("#NecesidadesEspecificasInput").dxTextArea({
+        placeholder: "Descripción Larga",
+        value: "{{blog.NecesidadesEspecificas}}",
+        onValueChanged: function (e) {
+            $("#NecesidadesEspecificas").val(e.value);
+        }
+    });
+});
+
+    </script>
+</body>

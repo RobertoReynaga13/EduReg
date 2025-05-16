@@ -1,0 +1,57 @@
+<h2>Personal de Logística</h2>
+<a href="usuarios/nuevo" class="btn btn-verde nvo-cliente"> <i class="fas fa-plus-circle"></i>
+  Nuevo
+</a>
+<div id="gridContainer"></div>
+<script>
+  $(function () {
+    const users = {{{ json users }}};
+    console.log('users: ', users);
+  $("#gridContainer").dxDataGrid({
+    dataSource: users,
+    columns: [
+      { dataField: "PersonalID", caption: "ID" },
+      { dataField: "Nombre", caption: "Nombre" },
+      { dataField: "Correo", caption: "Correo" },
+      { dataField: "AreaResponsable", caption: "Área responsable" },
+      {
+        dataField: "PersonalID",
+        caption: "",
+        cellTemplate: function (container, options) {
+          $('<button>')
+            .text('Editar')
+            .on('click', function () {
+              const itemId = options.data.PersonalID;
+              console.log('item: ', itemId);
+              window.location.href = '/usuarios/editar/' + itemId;
+            })
+            .appendTo(container);
+        },
+        width: 70
+      },
+      {
+        dataField: "PersonalID",
+        caption: "",
+        cellTemplate: function (container, options) {
+          $('<button>')
+            .text('Eliminar')
+            .on('click', function () {
+              const itemId = options.data.PersonalID;
+              console.log('item: ', itemId);
+              window.location.href = '/usuarios/eliminar/' + itemId;
+            })
+            .appendTo(container);
+        },
+        width: 80
+      }
+    ],
+    paging: {
+      pageSize: 10
+    },
+    pager: {
+      showPageSizeSelector: true,
+      allowedPageSizes: [10, 20, 50]
+    }
+  });
+  });
+</script>

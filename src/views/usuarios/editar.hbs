@@ -1,0 +1,62 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Personal de Logística</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        label {
+            font-size: 16px;
+            display: block;
+            margin-top: 10px;
+        }
+
+        input,
+        textarea,
+        .dx-field-value {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 10px 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Editar Ponente</h2>
+    <form id="editarBlogForm" action="/usuarios/editar/{{user.PersonalID}}" method="POST">
+        <div class="form-group">
+            <label for="AreaResponsable">Area Responsable:</label>
+            <div id="AreaResponsableInput"></div>
+            <input type="hidden" id="AreaResponsable" name="AreaResponsable" required>
+        </div>
+
+        <div class="enviar">
+            <button type="submit" class="btn btn-azul">Editar Blog</button>
+        </div>
+    </form>
+
+    <script>
+$(function () {
+    DevExpress.localization.locale('es');
+    // Inicializa el input oculto con el valor actual del blog
+    $("#AreaResponsable").val("{{user.AreaResponsable}}");
+
+    // Título
+    $("#AreaResponsableInput").dxTextBox({
+        placeholder: "AreaResponsable",
+        value: "{{user.AreaResponsable}}",
+        onValueChanged: function (e) {
+            $("#AreaResponsable").val(e.value);
+        }
+    });
+});
+
+    </script>
+</body>

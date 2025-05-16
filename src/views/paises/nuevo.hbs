@@ -1,0 +1,75 @@
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nuevo Estudiante</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+
+    label {
+      font-size: 16px;
+      display: block;
+      margin-top: 10px;
+    }
+
+    input,
+    textarea,
+    .dx-field-value {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 10px 15px;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>Nuevo Estudiante</h2>
+  <form action="/paises/nuevo" method="POST">
+
+        <div class="form-group">
+            <label for="UsuarioID">UsuarioID:</label>
+            <div id="UsuarioIDInput"></div>
+            <input type="hidden" id="UsuarioID" name="UsuarioID" required>
+        </div>
+
+    <div class="form-group">
+      <label for="NumControl">Num. Control:</label>
+      <div id="NumControlInput"></div>
+      <input type="hidden" id="NumControl" name="NumControl" required>
+    </div>
+
+    <div class="enviar">
+      <button type="submit" class="btn btn-azul">Agregar Estudiante</button>
+    </div>
+  </form>
+
+  <script>
+    $(function () {
+      DevExpress.localization.locale('es');
+
+
+            $("#UsuarioIDInput").dxNumberBox({
+                placeholder: "UsuarioID",
+                min: 0,
+                showSpinButtons: true,
+                onValueChanged: function (e) {
+                    $("#UsuarioID").val(e.value);
+                }
+            });
+
+      $("#NumControlInput").dxTextBox({
+        placeholder: "Num. Control",
+        onValueChanged: function (e) {
+          $("#NumControl").val(e.value);
+        }
+      });
+    });
+  </script>
+</body>

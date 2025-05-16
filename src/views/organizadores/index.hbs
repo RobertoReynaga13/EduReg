@@ -1,0 +1,56 @@
+
+<h2>Eventos</h2>
+<a href="/organizadores/nuevo" class="btn btn-verde nvo-cliente"> <i class="fas fa-plus-circle"></i>
+Nuevo
+</a>
+<div id="gridContainer"></div>
+<script>
+  $(function(){
+    const organizers = {{{organizers}}};
+    $("#gridContainer").dxDataGrid({
+      dataSource: organizers,
+      keyField: "OrganizadorID",
+      columns: [
+      { dataField: "EventoID", caption: "ID", width: 40 },
+      { dataField:"Nombre", caption:"Nombre" },
+      { dataField: "Fecha", caption: "Fecha", width: 200},
+      { dataField: "Ubicacion", caption: "Ubicacion", width: 100},
+      { dataField: "Descripcion", caption: "Descripcion" },
+      { dataField: "NombreOrganizador", caption: "Nombre Organizador", width:120 },
+      {
+        caption: "",
+        cellTemplate: function(container, options) {
+          $('<button>')
+          .text('Ver inscritos')
+          .on('click', function() {
+            const itemId = options.data.EventoID;
+            window.location.href = '/organizadores/inscritos/' + itemId;
+            })
+            .appendTo(container);
+            },
+            width: 100
+            },
+            {
+              caption: "",
+              cellTemplate: function(container, options) {
+                $('<button>')
+                .text('Inscribir')
+                .on('click', function() {
+                  const itemId = options.data.EventoID;
+                  window.location.href = '/organizadores/inscribir/' + itemId;
+                  })
+                  .appendTo(container);
+                  },
+                  width: 80
+                  }],
+                  paging: {
+                    pageSize: 10
+                    },
+                    pager: {
+                      showPageSizeSelector: true,
+                      allowedPageSizes: [10, 20, 50]
+                    }
+                    });
+                    });
+          </script>
+

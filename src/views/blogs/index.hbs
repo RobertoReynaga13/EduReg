@@ -1,0 +1,60 @@
+<h2>Ponentes</h2>
+<a href="/blogs/nuevo" class="btn btn-verde nvo-cliente">
+<i class="fas fa-plus-circle"></i> Nuevo
+</a>
+<div id="gridContainer"></div>
+<script>
+  $(function() {
+    const blogs = {{{json blogs}}};
+    console.log(blogs);
+    const nombres = blogs.map(b => b.Nombre).join(', ');
+$('#tituloPonentes').text(`Ponentes: ${nombres}`);
+    $("#gridContainer").dxDataGrid({
+      dataSource: blogs,
+      dateSerializationFormat: 'yyyy-MM-ddTHH:mm:ssZ',
+      columns: [
+      { dataField: "PonenteID", caption: "ID", width: 40},
+      { dataField: "Nombre", caption: "Nombre" },
+      { dataField: "Correo", caption: "Correo" },
+      { dataField: "Especialidad", caption: "Especialidad" },
+      { dataField: "TituloPonencias", caption: "Ponencia" },
+      { dataField: "NecesidadesEspecificas", caption: "Necesidades" },
+      {
+        dataField: "PonenteID",
+        caption: "",
+        cellTemplate: function(container, options) {
+          $('<button>')
+          .text('Editar')
+          .on('click', function() {
+            const itemId = options.data.PonenteID;
+            window.location.href = '/blogs/editar/' + itemId;
+            })
+            .appendTo(container);
+            },
+            width: 70
+            },
+            {
+              dataField: "PonenteID",
+              caption: "",
+              cellTemplate: function(container, options) {
+                $('<button>')
+                .text('Eliminar')
+                .on('click', function() {
+                  const itemId = options.data.PonenteID;
+                  window.location.href = '/blogs/eliminar/' + itemId;
+                  })
+                  .appendTo(container);
+                  },
+                  width: 80
+                  }],
+                  paging: {
+                    pageSize: 10
+                },
+                pager: {
+                    showPageSizeSelector: true,
+                    allowedPageSizes: [10, 20, 50]
+                }
+            });
+  });
+</script>
+

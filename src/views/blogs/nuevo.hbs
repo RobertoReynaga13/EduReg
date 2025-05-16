@@ -1,0 +1,101 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuevo Ponente</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        label {
+            font-size: 16px;
+            display: block;
+            margin-top: 10px;
+        }
+
+        input,
+        textarea,
+        .dx-field-value {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 10px 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Nuevo Ponente</h2>
+    <form action="/blogs/nuevo" method="POST">
+
+        <div class="form-group">
+            <label for="UsuarioID">UsuarioID:</label>
+            <div id="UsuarioIDInput"></div>
+            <input type="hidden" id="UsuarioID" name="UsuarioID" required>
+        </div>
+
+        <div class="form-group">
+            <label for="Especialidad">Especialidad:</label>
+            <div id="EspecialidadInput"></div>
+            <input type="hidden" id="Especialidad" name="Especialidad" required>
+        </div>
+
+        <div class="form-group">
+            <label for="TituloPonencias">TituloPonencias:</label>
+            <div id="TituloPonenciasInput"></div>
+            <input type="hidden" id="TituloPonencias" name="TituloPonencias" required>
+        </div>
+
+        <div class="form-group">
+            <label for="NecesidadesEspecificas">NecesidadesEspecificas:</label>
+            <div id="NecesidadesEspecificasInput"></div>
+            <input type="hidden" id="NecesidadesEspecificas" name="NecesidadesEspecificas">
+        </div>
+
+        <div class="enviar">
+            <button type="submit" class="btn btn-azul">Agregar Ponente</button>
+        </div>
+    </form>
+
+    <script>
+        $(function () {
+            DevExpress.localization.locale('es');
+
+            $("#UsuarioIDInput").dxNumberBox({
+                placeholder: "UsuarioID",
+                min: 0,
+                showSpinButtons: true,
+                onValueChanged: function (e) {
+                    $("#UsuarioID").val(e.value);
+                }
+            });
+            // Título
+            $("#EspecialidadInput").dxTextBox({
+                placeholder: "Especialidad",
+                onValueChanged: function (e) {
+                    $("#Especialidad").val(e.value);
+                }
+            });
+
+            // Descripción Corta
+            $("#TituloPonenciasInput").dxTextBox({
+                placeholder: "TituloPonencias",
+                onValueChanged: function (e) {
+                    $("#TituloPonencias").val(e.value);
+                }
+            });
+
+            // Tags
+            $("#NecesidadesEspecificasInput").dxTextBox({
+                placeholder: "NecesidadesEspecificas",
+                onValueChanged: function (e) {
+                    $("#NecesidadesEspecificas").val(e.value);
+                }
+            });
+        });
+    </script>
+</body>

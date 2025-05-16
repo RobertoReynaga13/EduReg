@@ -1,0 +1,78 @@
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editar Estudiante</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+
+    label {
+      font-size: 16px;
+      display: block;
+      margin-top: 10px;
+    }
+
+    input,
+    textarea,
+    .dx-field-value {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 10px 15px;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>Editar País</h2>
+  <form action="/paises/editar/{{country.PaisID}}" method="POST">
+
+    <div class="form-group">
+      <label for="NombrePais">Nombre del País:</label>
+      <div id="NombrePaisInput"></div>
+      <input type="hidden" id="NombrePais" name="NombrePais" required>
+    </div>
+
+    <div class="form-group">
+      <label for="CodigoISO">Código ISO:</label>
+      <div id="CodigoISOInput"></div>
+      <input type="hidden" id="CodigoISO" name="CodigoISO" required>
+    </div>
+
+    <div class="enviar">
+      <button type="submit" class="btn btn-azul">Editar País</button>
+    </div>
+  </form>
+
+  <script>
+    $(function () {
+      DevExpress.localization.locale('es');
+      $("#NombrePais").val("{{country.NombrePais}}");
+      $("#CodigoISO").val("{{country.CodigoISO}}");
+
+    // Nombre del País
+    $("#NombrePaisInput").dxTextBox({
+      placeholder: "Nombre del País",
+      value: "{{country.NombrePais}}",
+      onValueChanged: function (e) {
+        $("#NombrePais").val(e.value);
+      }
+    });
+
+    // Código ISO
+    $("#CodigoISOInput").dxTextBox({
+      placeholder: "Código ISO",
+      value: "{{country.CodigoISO}}",
+      onValueChanged: function (e) {
+        $("#CodigoISO").val(e.value);
+      }
+    });
+    });
+  </script>
+</body>

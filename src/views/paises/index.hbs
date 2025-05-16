@@ -1,0 +1,39 @@
+<h2>Estudiantes</h2>
+<a href="/paises/nuevo" class="btn btn-verde nvo-cliente">
+<i class="fas fa-plus-circle"></i> Nuevo
+</a>
+<div id="gridContainer"></div>
+<script>
+  $(function() {
+    const countries = {{{json countries}}};
+    $("#gridContainer").dxDataGrid({
+      dataSource: countries,
+      columns: [
+      { dataField: "EstudianteID", caption: "ID"},
+      { dataField: "Nombre", caption: "Nombre" },
+      { dataField: "Correo", caption: "Correo"},
+      { dataField: "NumControl", caption: "Num. Control"},
+
+            {
+              dataField: "EstudianteID",
+              caption: "",
+              cellTemplate: function(container, options) {
+                $('<button>')
+                .text('Eliminar')
+                .on('click', function() {
+                  const itemId = options.data.EstudianteID;
+                  window.location.href = '/paises/eliminar/' + itemId;
+                  })
+                  .appendTo(container);
+                  }
+                  }],
+                  paging: {
+                    pageSize: 10
+                },
+                pager: {
+                    showPageSizeSelector: true,
+                    allowedPageSizes: [10, 20, 50]
+                }
+            });
+  });
+</script>

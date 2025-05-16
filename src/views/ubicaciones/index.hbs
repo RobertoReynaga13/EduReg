@@ -1,0 +1,50 @@
+<h2>Asistentes Externos</h2>
+<a href="/ubicaciones/nuevo" class="btn btn-verde nvo-cliente">
+<i class="fas fa-plus-circle"></i> Nuevo
+</a>
+<div id="gridContainer"></div>
+<script>
+  $(function() {
+    const locations = {{{json locations}}};
+    $("#gridContainer").dxDataGrid({
+      dataSource: locations,
+      columns: [
+      { dataField: "AsistenteID", caption: "ID" },
+      { dataField: "Nombre", caption: "Nombre"},
+      { dataField: "Correo", caption: "Correo"},
+      {
+        dataField: "AsistenteID",
+        caption: "",
+        cellTemplate: function(container, options) {
+          $('<button>')
+          .text('Editar')
+          .on('click', function() {
+            const itemId = options.data.AsistenteID;
+            window.location.href = '/ubicaciones/editar/' + itemId;
+            })
+            .appendTo(container);
+            }
+            },
+            {
+              dataField: "UbicacionID",
+              caption: "",
+              cellTemplate: function(container, options) {
+                $('<button>')
+                .text('Eliminar')
+                .on('click', function() {
+                  const itemId = options.data.UbicacionID;
+                  window.location.href = '/ubicaciones/eliminar/' + itemId;
+                  })
+                  .appendTo(container);
+                  }
+                  }],
+                  paging: {
+                    pageSize: 10
+                },
+                pager: {
+                    showPageSizeSelector: true,
+                    allowedPageSizes: [10, 20, 50]
+                }
+            });
+  });
+</script>

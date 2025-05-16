@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <h1>Nuevo Evento</h1>
+    {{#if errores}}
+      <ul>
+        {{#each errores}}
+          <p style="color: red;">{{this}}</p>
+        {{/each}}
+      </ul>
+    {{/if}}
+    <form id="organizerForm" action="/organizadores/editar/{{organizer.OrganizadorID}}" method="POST" class="container mt-5">
+    <div class="form-group">
+      <label for="NombreOrganizador">Nombre:</label>
+      <input type="text" id="NombreOrganizador" name="NombreOrganizador" class="form-control" value="{{organizer.NombreOrganizador}}" required>
+    </div>
+
+    <div class="form-group">
+        <label for="Facebook">Fecha:</label>
+        <input type="text" id="Facebook" name="Facebook" class="form-control" value="{{organizer.Facebook}}">
+    </div>
+
+    <div class="form-group">
+        <label for="Instagram">Ubicacion:</label>
+        <input type="text" id="Instagram" name="Instagram" class="form-control" value="{{organizer.Instagram}}">
+    </div>
+
+    <div class="form-group">
+        <label for="Web">Descripcion</label>
+        <input type="text" id="Web" name="Web" class="form-control" value="{{organizer.Web}}">
+    </div>
+
+    <div class="form-group">
+        <label for="Email">Email:</label>
+        <input type="email" id="Email" name="Email" class="form-control" value="{{organizer.Email}}" required>
+    </div>
+
+    <div class="form-group">
+        <label for="Telefono">Teléfono:</label>
+        <input type="tel" id="Telefono" name="Telefono" class="form-control" value="{{organizer.Telefono}}" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Guardar</button>
+</form>
+
+
+</body>
+</html>

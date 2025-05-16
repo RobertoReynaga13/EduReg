@@ -1,0 +1,69 @@
+<h2>Mi Perfil</h2>
+
+<h3>Nombre: <span id="nombreUsuario"></span></h3>
+<h3>Correo: <span id="correoUsuario"></span></h3>
+<h3>Tipo: <span id="nombreTipoUsuario"></span></h3>
+
+<h3>Eventos inscritos</h3>
+<div id="gridContainer"></div>
+<script>
+  $(function() {
+    const user = {{{json users}}};  // Ahora 'users' es un objeto, no un array
+    const events = {{{json events}}};
+    console.log(events);
+
+        if (user) {
+      const nombre = user.Nombre;
+      const correo = user.Correo;
+      const nombreTipo = user.NombreTipo;
+
+      $('#nombreUsuario').text(nombre);
+      $('#correoUsuario').text(correo);
+      $('#nombreTipoUsuario').text(nombreTipo);
+    }
+    $("#gridContainer").dxDataGrid({
+      dataSource: events,
+      dateSerializationFormat: 'yyyy-MM-ddTHH:mm:ssZ',
+      columns: [
+      { dataField: "Nombre", caption: "Nombre", width: 250 },
+      { dataField: "Fecha", caption: "Fecha", width: 200 },
+      { dataField: "Ubicacion", caption: "Ubicacion", width: 100 },
+      {
+        dataField: "PonenteID",
+        caption: "",
+        cellTemplate: function(container, options) {
+          $('<button>')
+          .text('Evaluar')
+          .on('click', function() {
+            const itemId = options.data.PonenteID;
+            window.location.href = '/blogs/editar/' + itemId;
+            })
+            .appendTo(container);
+            },
+            width: 70
+            },
+            {
+              dataField: "PonenteID",
+              caption: "",
+              cellTemplate: function(container, options) {
+                $('<button>')
+                .text('Desinscribir')
+                .on('click', function() {
+                  const itemId = options.data.PonenteID;
+                  window.location.href = '/blogs/eliminar/' + itemId;
+                  })
+                  .appendTo(container);
+                  },
+                  width: 100
+                  }],
+                  paging: {
+                    pageSize: 10
+                },
+                pager: {
+                    showPageSizeSelector: true,
+                    allowedPageSizes: [10, 20, 50]
+                }
+            });
+  });
+</script>
+

@@ -1,0 +1,55 @@
+<h2>Comite Organizador</h2>
+<a href="/carreras/nuevo" class="btn btn-verde nvo-cliente"> <i class="fas fa-plus-circle"></i>
+Nuevo
+</a>
+<div id="gridContainer"></div>
+<script>
+  $(function(){
+    const carreras = {{{races}}};
+    $("#gridContainer").dxDataGrid({
+      dataSource: carreras,
+      keyField: "Id",
+      columns: [
+      { dataField:"OrganizadorID", caption:"ID", width: 180 },
+      { dataField: "Nombre", caption: "Nombre", dataType: "date", format: "yyyy-MM-dd" },
+      { dataField: "Correo", caption: "Correo" },
+      {
+        caption: "",
+        cellTemplate: function(container, options) {
+          $('<button>')
+          .text('Editar')
+          .on('click', function() {
+            const itemId = options.data.Id;
+            window.location.href = '/carreras/editar/' + itemId;
+            })
+            .appendTo(container);
+            }
+            },
+            {
+              caption: "",
+              cellTemplate: function(container, options) {
+                $('<button>')
+                .text('Eliminar')
+                .on('click', function() {
+                  const itemId = options.data.Id;
+                  window.location.href = '/carreras/editar/' + itemId;
+                  })
+                  .appendTo(container);
+                  }
+                  }],
+                  paging: {
+                    pageSize: 10
+                    },
+                    pager: {
+                      showPageSizeSelector: true,
+                      allowedPageSizes: [10, 20, 50]
+                    }
+                    });
+
+  });
+</script>
+
+
+
+
+

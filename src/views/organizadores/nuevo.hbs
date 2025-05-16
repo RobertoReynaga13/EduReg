@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Organizador</title>
+</head>
+<body>
+    <h1>Nuevo Evento</h1>
+    <form id="organizerForm" action="/organizadores" method="POST" class="container mt-5">
+
+    <div class="form-group">
+      <label for="NombreOrganizador">Nombre:</label>
+      <input type="text" id="NombreOrganizador" name="NombreOrganizador" class="form-control" required>
+    </div>
+
+    <div class="form-group">
+        <label for="Facebook">Fecha:</label>
+        <input type="text" id="Facebook" name="Facebook" class="form-control">
+    </div>
+
+    <div class="form-group">
+        <label for="Instagram">Ubicacion:</label>
+        <input type="text" id="Instagram" name="Instagram" class="form-control">
+    </div>
+
+    <div class="form-group">
+        <label for="Web">Descripcion:</label>
+        <input type="text" id="Web" name="Web" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-primary">Guardar</button>
+</form>
+
+
+</body>
+</html>

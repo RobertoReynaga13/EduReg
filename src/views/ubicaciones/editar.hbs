@@ -1,0 +1,135 @@
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nueva Ubicación</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+
+    label {
+      font-size: 16px;
+      display: block;
+      margin-top: 10px;
+    }
+
+    input,
+    textarea,
+    .dx-field-value {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 10px 15px;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>Editar Ubicación</h2>
+  <form action="/ubicaciones/editar/{{location.UbicacionID}}" method="POST">
+
+    <div class="form-group">
+      <label for="Lugar">Lugar:</label>
+      <div id="LugarInput"></div>
+      <input type="hidden" id="Lugar" name="Lugar" required>
+    </div>
+
+    <div class="form-group">
+      <label for="Coordenadas">Coordenadas:</label>
+      <div id="CoordenadasInput"></div>
+      <input type="hidden" id="Coordenadas" name="Coordenadas" required>
+    </div>
+
+    <div class="form-group">
+      <label for="Pais">Pais:</label>
+      <div id="PaisInput" name="PaisID"></div>
+      <input type="hidden" id="PaisID" name="PaisID" required>
+    </div>
+
+    <div class="form-group">
+      <label for="Estado">Estado:</label>
+      <div id="EstadoInput" name="EstadoID"></div>
+      <input type="hidden" id="EstadoID" name="EstadoID" required>
+    </div>
+
+    <div class="enviar">
+      <button type="submit" class="btn btn-azul">Editar Ubicación</button>
+    </div>
+  </form>
+
+  <script>
+    $(function () {
+      DevExpress.localization.locale('es');
+      $("#Lugar").val("{{location.Lugar}}");
+      $("#Coordenadas").val("{{location.Coordenadas}}");
+      $("#PaisID").val("{{location.PaisID}}");
+
+      // Campo de Lugar
+      $("#LugarInput").dxTextBox({
+        placeholder: "Lugar",
+        value: "{{location.Lugar}}",
+        onValueChanged: function (e) {
+          $("#Lugar").val(e.value);
+        }
+      });
+
+      // Campo de Coordenadas
+      $("#CoordenadasInput").dxTextBox({
+        placeholder: "Coordenadas",
+        value: "{{location.Coordenadas}}",
+        onValueChanged: function (e) {
+          $("#Coordenadas").val(e.value);
+        }
+      });
+
+      // Campo de País
+      const countryData = {{{ json countryData }}};
+      $("#PaisInput").dxSelectBox({
+        dataSource: countryData,
+        valueExpr: "Id",
+        displayExpr: "Description",
+        placeholder: "Selecciona una opción",
+        value: {{location.PaisID}},
+        showClearButton: true,
+        onValueChanged: function (e) {
+          $("#PaisID").val(e.value);
+        }
+      });
+
+      // Campo de Estado
+      const stateData = {{{ json stateData }}};
+      $("#EstadoInput").dxSelectBox({
+        dataSource: stateData,
+        valueExpr: "Id",
+        displayExpr: "Description",
+        placeholder: "Selecciona una opción",
+        showClearButton: true,
+        onValueChanged: function (e) {
+          $("#EstadoID").val(e.value);
+        }
+      });
+setTimeout(function() {
+  seleccionarEstado();
+}, 3000); // 2000 milisegundos = 2 segundos
+
+ 
+    });
+
+
+   function seleccionarEstado(){
+   var estadoIDSeleccionado = "{{location.EstadoID}}" || 0;
+   console.log(estadoIDSeleccionado);
+   //if(estadoIDSeleccionado != 0){
+    $("#EstadoInput").dxSelectBox({
+      value: estadoIDSeleccionado
+    });
+   }
+   //}
+
+  </script>
+</body>
