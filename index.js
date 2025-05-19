@@ -39,6 +39,12 @@ app.set('views', path.join(__dirname, 'src', 'views'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());
+app.use((req, res, next) => {
+  if (req.user && req.user.tipousuario) {
+    res.locals.tipousuario = req.user.tipousuario;
+  }
+  next();
+});
 
 app.use('/', authRoutes);
 app.use('/', organizerRoutes);
