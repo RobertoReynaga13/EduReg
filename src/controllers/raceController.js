@@ -10,7 +10,7 @@ class raceController {
         console.log("=============== R E S U L T A D O carreras");
         console.log(req.user.userId);
 
-        res.render('carreras/', { races: JSON.stringify(races), user: req.user.userId });
+        res.render('carreras/', { races: JSON.stringify(races), user: req.user.userId, tipousuario: req.user.tipousuario, username: req.user.username });
       } catch (error) {
         res.status(500).send('Error al cargar pagina inicio.');
       }
@@ -18,7 +18,7 @@ class raceController {
   async newRace(req, res){
     const catOrganizer = await catalogService.getCatOrganizers();
     const catLocation = await catalogService.getCatLocationes();
-    res.render('carreras/nuevo', { organizerData: catOrganizer.message, locationData: catLocation.message });
+    res.render('carreras/nuevo', { organizerData: catOrganizer.message, locationData: catLocation.message, user: req.user.userId, tipousuario: req.user.tipousuario, username: req.user.username  });
   }
   async postRace(req, res){
     const newRace = new raceModel(

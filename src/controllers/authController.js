@@ -45,7 +45,55 @@ class authController {
   async perfil(req, res) {
     const users = await authService.getUserInfo(req.user.userId);
     const events = await authService.getEvents(req.user.userId);
-    res.render('perfil/index', { users, events });
+    res.render('perfil/index', { users, events, user: req.user.userId, tipousuario: req.user.tipousuario, username: req.user.username});
+  }
+
+  async registro(req, res) {
+    res.render('registro', { layout: false });
+  }
+
+  async postRegistro(req, res) {
+    const { name, email, password, confirmPassword } = req.body;
+    const { body, validationResult } = require('express-validator');
+
+    try {
+      await body('name')
+        .notEmpty().withMessage('El nombre es requerido')
+        .run(req);
+
+      await body('email')
+        .isEmail().withMessage('Email inválido')
+        .run(req);
+
+      await body('password')
+        .notEmpty().withMessage('La contraseña es requerida')
+        .run(req);
+
+      await body('confirmPassword')
+        .custom((value, { req }) => {
+          if (value !== req.body.password) {
+            throw new Error('Las contraseñas no coinciden');
+          }
+          return true;
+        })
+        .run(req);
+
+      const errors = validationResult(req);
+
+      if (!errors.isEmpty()) {
+        return res.status(400).send({ errors: errors.array() });
+      }
+
+      await authService.postRegistro(name, email, password);
+
+      res.status(200).send({ message: 'Registro exitoso' });
+    } catch (error) {
+      res.status(500).send({ message: 'Error en el servidor. Intente nuevamente.' });
+    }
+  }
+
+  async nosotros(req, res) {
+    res.render('nosotros', {user: req.user.userId, tipousuario: req.user.tipousuario, username: req.user.username});
   }
 }
 

@@ -12,31 +12,7 @@ Nuevo
       columns: [
       { dataField:"OrganizadorID", caption:"ID", width: 180 },
       { dataField: "Nombre", caption: "Nombre", dataType: "date", format: "yyyy-MM-dd" },
-      { dataField: "Correo", caption: "Correo" },
-      {
-        caption: "",
-        cellTemplate: function(container, options) {
-          $('<button>')
-          .text('Editar')
-          .on('click', function() {
-            const itemId = options.data.Id;
-            window.location.href = '/carreras/editar/' + itemId;
-            })
-            .appendTo(container);
-            }
-            },
-            {
-              caption: "",
-              cellTemplate: function(container, options) {
-                $('<button>')
-                .text('Eliminar')
-                .on('click', function() {
-                  const itemId = options.data.Id;
-                  window.location.href = '/carreras/editar/' + itemId;
-                  })
-                  .appendTo(container);
-                  }
-                  }],
+      { dataField: "Correo", caption: "Correo" }],
                   paging: {
                     pageSize: 10
                     },

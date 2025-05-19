@@ -83,7 +83,9 @@
         <img src="/public/img/LOGOEDUREG.png" class="mi-imagen">
         <h1 class="titulo">EduReg</h1>
         <div class="user-controls">
-            <h2 class="Bienvenida">Bienvenido</h2>
+            {{#if username}}
+            <h2 class="Bienvenida">Bienvenido, {{username}}</h2>
+            {{/if}}
             <form action="/logout" method="POST">
                 <button type="submit" class="btn btn-danger logout-btn">Cerrar sesión</button>
             </form>
@@ -99,12 +101,26 @@
 <div class="grid contenedor contenido-principal">
     <aside class="sidebar col-2">
         <nav class="navegacion">
-            <a href="/carreras" class="clientes">Comite Organizador</a>
-            <a href="/blogs" class="clientes">Ponentes</a>
-            <a href="/usuarios" class="clientes">Personal de Logística</a>
-            <a href="/paises" class="clientes">Estudiantes</a>
-            <a href="/ubicaciones" class="clientes">Asistentes externos</a>
-            <a href="/organizadores" class="pedidos">Eventos</a>
+            <aside class="sidebar col-2">
+                <nav class="navegacion">
+
+                    {{#if (eq tipousuario 1)}}
+                    <a href="/carreras" class="clientes">Comité Organizador</a>
+                    <a href="/blogs" class="clientes">Ponentes</a>
+                    <a href="/usuarios" class="clientes">Personal de Logística</a>
+                    <a href="/ubicaciones" class="clientes">Asistentes externos</a>
+                    <a href="/paises" class="clientes">Estudiantes</a>
+                    <a href="/organizadores" class="pedidos">Eventos</a>
+                    <a href="/nosotros" class="clientes">Nosotros</a>
+                    {{else}}
+                    <a href="/organizadores" class="pedidos">Eventos</a>
+                    <a href="/nosotros" class="clientes">Nosotros</a>
+                    {{/if}}
+
+                </nav>
+            </aside>
+
+
         </nav>
     </aside>
     <main class="caja-contenido col-10">

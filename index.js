@@ -19,11 +19,15 @@ const app = express();
 
 app.engine('hbs', engine({
   extname: '.hbs',
-  helpers: handlebars.helpers
+  helpers: {
+    ...handlebars.helpers, // conserva los que ya existían
+    eq: (a, b) => a === b,
+    or: (...args) => args.slice(0, -1).some(Boolean),
+  }
 }));
 
 app.set('view engine', 'hbs');
-app.use('/public', express.static(path.join(__dirname, 'src','public')));
+app.use('/public', express.static(path.join(__dirname, 'src', 'public')));
 
 // Configurar el directorio de vistas
 app.use(express.urlencoded({ extended: true }));
@@ -46,5 +50,5 @@ app.use('/', blogRoutes);
 
 
 app.listen(3000, () => {
-    console.log('🚀 Servidor ejecutándose en http://localhost:3000 🚀');
+  console.log('🚀 Servidor ejecutándose en http://localhost:3000 🚀');
 });

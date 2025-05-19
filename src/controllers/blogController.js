@@ -6,14 +6,14 @@ class BlogController {
             const blogs = await blogService.getAllBlogs();
             console.log(blogs);
             // Serializar blogs como JSON para la vista
-            res.render('blogs/index', { blogs });
+            res.render('blogs/index', { blogs, user: req.user.userId, tipousuario: req.user.tipousuario, username: req.user.username });
         } catch (error) {
             res.status(500).send('Error al cargar la página de inicio.');
         }
     }
 
     async getBlog(req, res) {
-        res.render('blogs/nuevo');
+        res.render('blogs/nuevo', { user: req.user.userId, tipousuario: req.user.tipousuario, username: req.user.username, username: req.user.username });
     };
 
     async postBlog(req, res) {
@@ -44,7 +44,7 @@ class BlogController {
             const blogs = await blogService.getAllBlogs();
     
             // Renderizar la página con la lista actualizada
-            res.render('blogs', { blogs });
+            res.render('blogs', { blogs, user: req.user.userId, tipousuario: req.user.tipousuario, username: req.user.username });
         } catch (error) {
             console.error('Error al agregar el blog:', error.message);
             res.status(500).send('Error al agregar el blog.');
@@ -57,7 +57,7 @@ class BlogController {
         const blog = await blogService.getBlog(blogId); // Llamada a la función getBlogById
         if (!blog) return next();
         console.log(blog);
-        res.render('blogs/editar', { blog });
+        res.render('blogs/editar', { blog, user: req.user.userId, tipousuario: req.user.tipousuario, username: req.user.username });
     };
 
     async putBlog(req, res) {
@@ -78,7 +78,7 @@ class BlogController {
     
             // Redireccionar o renderizar la página con la lista actualizada de blogs
             const blogs = await blogService.getAllBlogs();
-            res.render('blogs', { blogs });
+            res.render('blogs', { blogs, user: req.user.userId, tipousuario: req.user.tipousuario, username: req.user.username });
         } catch (error) {
             console.error('Error al actualizar el blog:', error.message);
             res.status(500).send('Error al actualizar el blog.');

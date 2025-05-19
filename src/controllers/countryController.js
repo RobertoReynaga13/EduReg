@@ -6,13 +6,13 @@ class countryController {
     try {
       const countries = await countryService.getCountries();
       console.log(countries);
-      res.render('paises/index', { countries });
+      res.render('paises/index', { countries, user: req.user.userId, tipousuario: req.user.tipousuario, username: req.user.username });
     } catch (error) {
       res.status(500).send('Error al cargar página');
     }
   }
   async newCountry(req, res) {
-    res.render('paises/nuevo');
+    res.render('paises/nuevo', { user: req.user.userId, tipousuario: req.user.tipousuario, username: req.user.username });
   }
   async postCountry(req, res) {
     try {
@@ -36,7 +36,7 @@ class countryController {
 
       const countries = await countryService.getCountries();
 
-      res.render('paises', { countries});
+      res.render('paises', { countries, user: req.user.userId, tipousuario: req.user.tipousuario, username: req.user.username });
     } catch (error) {
       console.error('Error al agregar el pais:', error.message);
       res.status(500).send('Error al agregar el pais.');
@@ -49,7 +49,7 @@ class countryController {
     const country = await countryService.getCountry(id);
     console.log(country);
     if (country) {
-      res.render('paises/editar', { country });
+      res.render('paises/editar', { country, user: req.user.userId, tipousuario: req.user.tipousuario, username: req.user.username });
     } else {
       res.status(404).send('Estudiante no encontrado')
     }
@@ -66,7 +66,7 @@ class countryController {
 
       await countryService.putCountry(updatedCountry);
       const countries = await countryService.getCountries();
-      res.render('paises/index', { countries })
+      res.render('paises/index', { countries, user: req.user.userId, tipousuario: req.user.tipousuario, username: req.user.username });
     } catch (error) {
       console.error('Error al actualizar el pais:', error.message);
       res.status(500).send('Error al actualizar el pais.');

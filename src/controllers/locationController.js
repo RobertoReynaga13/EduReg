@@ -6,7 +6,7 @@ class locationController {
     try {
       const locations = await locationService.getLocations();
       console.log(locations);
-      res.render('ubicaciones/', { locations });
+      res.render('ubicaciones/', { locations, user: req.user.userId, tipousuario: req.user.tipousuario });
     } catch (error) {
       res.status(500).send('Error al cargar pagina inicio.');
     }
@@ -14,7 +14,7 @@ class locationController {
   async newLocation(req, res) {
     const catCountry = await catalogService.getCatCountries();
     const catState = await catalogService.getCatStates();
-    res.render('ubicaciones/nuevo', { countryData: catCountry.message, stateData: catState.message });
+    res.render('ubicaciones/nuevo', { countryData: catCountry.message, stateData: catState.message, user: req.user.userId, tipousuario: req.user.tipousuario });
   }
   async postLocation(req, res) {
     const {
@@ -43,7 +43,7 @@ class locationController {
     const catCountry = await catalogService.getCatCountries();
     const catState = await catalogService.getCatStates();
     if(location){
-      res.render('ubicaciones/editar', { location, countryData: catCountry.message, stateData: catState.message });
+      res.render('ubicaciones/editar', { location, countryData: catCountry.message, stateData: catState.message, user: req.user.userId, tipousuario: req.user.tipousuario });
     } else {
       res.status(404).send('Ubicación no encontrada')
     }

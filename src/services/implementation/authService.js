@@ -17,16 +17,17 @@ class AuthService extends IAuthService {
                 return { success: false, message: 'Usuario no encontrado' };
             }
 
-            const { Resultado, UsuarioId, Email } = userRecord[0];
+            const { Resultado, UsuarioId, Correo, TipoUsuario } = userRecord[0];
+            console.log(userRecord[0])
             if (password !== Resultado) {
                 return { success: false, message: 'Credenciales incorrectas' };
             }
 
-            const token = jwt.sign({ userId: UsuarioId, username: Email }, secretKey, {
+            const token = jwt.sign({ userId: UsuarioId, username: Correo, tipousuario: TipoUsuario }, secretKey, {
                 expiresIn: '1h'
             });
 
-            return { success: true, token, username: Email };
+            return { success: true, token, username: Correo, tipousuario: TipoUsuario };
         } catch (error) {
             console.error('Error en login:', error);
             throw new Error('Error interno en la autenticación');
@@ -52,6 +53,10 @@ class AuthService extends IAuthService {
     async getEvents(id) {
         return await authRepository.getEvents(id);
         console.log('events', events);
+    }
+
+    async postRegistro(name, email, password){
+        return await authRepository.postRegistro(name, email, password);
     }
 }
 

@@ -1,1 +1,27 @@
-<h1>HOLA</h1>
+
+<h2>Inscritos</h2>
+<a href="/organizadores/nuevo" class="btn btn-verde nvo-cliente"> <i class="fas fa-plus-circle"></i>
+Nuevo
+</a>
+<div id="gridContainer"></div>
+<script>
+  $(function(){
+    const organizers = {{{inscritos}}};
+    console.log(organizers);
+    $("#gridContainer").dxDataGrid({
+      dataSource: organizers,
+      keyField: "UsuarioID",
+      columns: [
+      { dataField: "UsuarioID", caption: "ID", width: 40 },
+      { dataField:"Nombre", caption:"Nombre" },
+      { dataField: "Correo", caption: "Correo", width: 200}],
+                  paging: {
+                    pageSize: 10
+                    },
+                    pager: {
+                      showPageSizeSelector: true,
+                      allowedPageSizes: [10, 20, 50]
+                    }
+                    });
+                    });
+          </script>

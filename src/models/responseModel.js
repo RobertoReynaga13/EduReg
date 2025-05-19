@@ -1,8 +1,9 @@
 class responseModel {
-  constructor(Resultado, UsuarioId, Email, Mensaje) {
+  constructor(Resultado, UsuarioId, Correo, TipoUsuario, Mensaje) {
       this.Resultado = Resultado;
       this.UsuarioId = UsuarioId;
-      this.Email = Email;
+      this.Correo = Correo;
+      this.TipoUsuario = TipoUsuario;
       this.Mensaje = Mensaje;
   }
 }

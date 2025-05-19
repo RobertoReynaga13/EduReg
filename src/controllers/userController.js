@@ -5,14 +5,14 @@ class userController {
   async getUsers(req, res) {
     try {
       const users = await userService.getAllUsers();
-      res.render('usuarios/index', { users });
+      res.render('usuarios/index', { users, user: req.user.userId, tipousuario: req.user.tipousuario, username: req.user.username  });
     } catch (error)
     {
       res.status(500).send('Error al cargar la página de inicio.');
     }
   }
   async newUser(req, res){
-    res.render('usuarios/nuevo');
+    res.render('usuarios/nuevo', { user: req.user.userId, tipousuario: req.user.tipousuario, username: req.user.username });
   }
   async postUser(req, res){
     try {
@@ -36,7 +36,7 @@ class userController {
       // Obtener la lista actualizada de usuarios
       const users = await userService.getAllUsers();
 
-      res.render('usuarios', { users });
+      res.render('usuarios', { users, user: req.user.userId, tipousuario: req.user.tipousuario, username: req.user.username  });
     } catch (error) {
       console.error('Error al agregar el usuario:', error.message);
       res.status(500).send('Error al agregar el usuario.');
@@ -48,10 +48,10 @@ class userController {
   async getEditForm(req, res) {
     const userId = req.params.id; // Obtener el ID del blog de la URL
     console.log('id: ', userId);
-    const user = await userService.getUserById(userId); // Llamada a la función getBlogById
-    if (!user) return next();
-    console.log(user);
-    res.render('usuarios/editar', { user });
+    const userinfo = await userService.getUserById(userId); // Llamada a la función getBlogById
+    if (!userinfo) return next();
+    console.log(userinfo);
+    res.render('usuarios/editar', { userinfo, user: req.user.userId, tipousuario: req.user.tipousuario, username: req.user.username  });
     };
   
   async putUser(req, res){

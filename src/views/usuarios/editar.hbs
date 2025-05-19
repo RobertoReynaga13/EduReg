@@ -29,8 +29,8 @@
 </head>
 
 <body>
-    <h2>Editar Ponente</h2>
-    <form id="editarBlogForm" action="/usuarios/editar/{{user.PersonalID}}" method="POST">
+    <h2>Editar Personal</h2>
+    <form id="editarBlogForm" action="/usuarios/editar/{{userinfo.PersonalID}}" method="POST">
         <div class="form-group">
             <label for="AreaResponsable">Area Responsable:</label>
             <div id="AreaResponsableInput"></div>
@@ -38,7 +38,7 @@
         </div>
 
         <div class="enviar">
-            <button type="submit" class="btn btn-azul">Editar Blog</button>
+            <button type="submit" class="btn btn-azul">Editar Personal</button>
         </div>
     </form>
 
@@ -46,12 +46,12 @@
 $(function () {
     DevExpress.localization.locale('es');
     // Inicializa el input oculto con el valor actual del blog
-    $("#AreaResponsable").val("{{user.AreaResponsable}}");
+    $("#AreaResponsable").val("{{userinfo.AreaResponsable}}");
 
     // Título
     $("#AreaResponsableInput").dxTextBox({
         placeholder: "AreaResponsable",
-        value: "{{user.AreaResponsable}}",
+        value: "{{userinfo.AreaResponsable}}",
         onValueChanged: function (e) {
             $("#AreaResponsable").val(e.value);
         }

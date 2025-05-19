@@ -67,3 +67,41 @@ button.login-button:hover {
   display: block;
   margin-top: -10px;
 }
+
+button,
+.btn-registrar {
+    background-color: #3498db;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover,
+.btn-registrar:hover {
+    background-color: #2980b9;
+}
+
+@keyframes fadeSlide {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-logo {
+    display: block;
+    margin: 0 auto 20px auto;
+    width: 150px;
+    height: auto;
+    animation: fadeSlide 1s ease-out;
+}
+
