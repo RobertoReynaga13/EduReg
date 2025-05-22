@@ -25,17 +25,18 @@
       dataSource: events,
       dateSerializationFormat: 'yyyy-MM-ddTHH:mm:ssZ',
       columns: [
+      {dataField: "EventoID", caption: "EventoID", width: 100 },
       { dataField: "Nombre", caption: "Nombre", width: 250 },
       { dataField: "Fecha", caption: "Fecha", width: 200 },
       { dataField: "Ubicacion", caption: "Ubicacion", width: 100 },
             {
-              dataField: "PonenteID",
+              dataField: "EventoID",
               caption: "",
               cellTemplate: function(container, options) {
                 $('<button>')
                 .text('Desinscribir')
                 .on('click', function() {
-                  const itemId = options.data.PonenteID;
+                  const itemId = options.data.EventoID;
                   window.location.href = '/eventosinscritos/eliminar/' + itemId;
                   })
                   .appendTo(container);

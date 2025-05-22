@@ -85,5 +85,18 @@ class AuthRepository extends IAuthRepository {
     }
   }
 
+  async eliminarEventoInscrito(id) {
+    try {
+      const pool = await poolPromise;
+      const result = await pool.request()
+        .input('Param1', sql.Int, id)
+        .execute('sp_DELETE_EventoInscrito');
+
+      return result;
+    } catch (error) {
+      console.error('Error al eliminar el evento inscrito:', error);
+      throw error;
+    }
+  }
 }
 module.exports = new AuthRepository();

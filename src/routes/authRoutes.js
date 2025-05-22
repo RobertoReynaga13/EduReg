@@ -10,4 +10,5 @@ authRoutes.post('/perfil', authMiddleware,  (req, res) => authController.perfil(
 authRoutes.get('/registro', (req, res) => authController.registro(req, res));
 authRoutes.post('/registro', (req, res) => authController.postRegistro(req, res));
 authRoutes.get('/nosotros',authMiddleware, (req, res) => authController.nosotros(req, res));
+authRoutes.get('/eventosinscritos/eliminar/:id', authMiddleware, (req, res) => authController.eliminarEventoInscrito(req, res));
 module.exports = authRoutes;

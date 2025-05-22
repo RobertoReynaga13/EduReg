@@ -58,6 +58,10 @@ class AuthService extends IAuthService {
     async postRegistro(name, email, password){
         return await authRepository.postRegistro(name, email, password);
     }
+
+    async eliminarEventoInscrito(id) {
+        return await authRepository.eliminarEventoInscrito(id);
+    }
 }
 
 module.exports = new AuthService();

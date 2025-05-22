@@ -1,3 +1,4 @@
+const { eliminarEventoInscrito } = require('../repositories/implementation/authRepository');
 const authService = require('../services/implementation/authService');
 
 class authController {
@@ -45,7 +46,7 @@ class authController {
   async perfil(req, res) {
     const users = await authService.getUserInfo(req.user.userId);
     const events = await authService.getEvents(req.user.userId);
-    res.render('perfil/index', { users, events, user: req.user.userId, tipousuario: req.user.tipousuario, username: req.user.username});
+    res.render('perfil/index', { users, events, user: req.user.userId, tipousuario: req.user.tipousuario, username: req.user.username });
   }
 
   async registro(req, res) {
@@ -93,8 +94,21 @@ class authController {
   }
 
   async nosotros(req, res) {
-    res.render('nosotros', {user: req.user.userId, tipousuario: req.user.tipousuario, username: req.user.username});
+    res.render('nosotros', { user: req.user.userId, tipousuario: req.user.tipousuario, username: req.user.username });
+  }
+
+
+  async eliminarEventoInscrito(req, res) {
+    try {
+      const eventoInscritoId = req.params.id;
+      await eliminarEventoInscrito(eventoInscritoId);
+          const users = await authService.getUserInfo(req.user.userId);
+    const events = await authService.getEvents(req.user.userId);
+res.render('perfil/index', { users, events, user: req.user.userId, tipousuario: req.user.tipousuario, username: req.user.username });
+    } catch (error) {
+      console.error('Error al eliminar el evento inscrito:', error);
+      res.status(500).send('Error al eliminar el evento inscrito.');
+    }
   }
 }
-
 module.exports = new authController();
