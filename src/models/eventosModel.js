@@ -1,7 +1,8 @@
 const Joi = require('joi');
 
 class eventosModel {
-  constructor({Nombre, Fecha, Ubicacion}) {
+  constructor({EventoID, Nombre, Fecha, Ubicacion}) {
+    this.EventoID = EventoID;
     this.Nombre = Nombre;
     this.Fecha = Fecha;
     this.Ubicacion = Ubicacion;

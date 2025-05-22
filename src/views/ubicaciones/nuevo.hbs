@@ -1,64 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nueva Ubicación</title>
+  <title>Nuevo Asistente Externo</title>
+ 
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-    }
+       body {
+            font-family: Arial, sans-serif;
+        }
 
-    label {
-      font-size: 16px;
-      display: block;
-      margin-top: 10px;
-    }
+        label {
+            font-size: 16px;
+            display: block;
+            margin-top: 10px;
+        }
 
-    input,
-    textarea,
-    .dx-field-value {
-      width: 100%;
-      padding: 8px;
-      margin-top: 5px;
-    }
+        input,
+        textarea,
+        .dx-field-value {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+        }
 
-    button {
-      margin-top: 15px;
-      padding: 10px 15px;
-    }
+        button {
+            margin-top: 15px;
+            padding: 10px 15px;
+        }
   </style>
 </head>
 
 <body>
-  <h2>Nueva Ubicación</h2>
+  <h2>Nuevo Asistente Externo</h2>
   <form action="/ubicaciones/nuevo" method="POST">
-
     <div class="form-group">
-      <label for="Lugar">Lugar:</label>
-      <div id="LugarInput"></div>
-      <input type="hidden" id="Lugar" name="Lugar" required>
-    </div>
-
-    <div class="form-group">
-      <label for="Coordenadas">Coordenadas:</label>
-      <div id="CoordenadasInput"></div>
-      <input type="hidden" id="Coordenadas" name="Coordenadas" required>
-    </div>
-
-    <div class="form-group">
-      <label for="Pais">Pais:</label>
-      <div id="PaisInput" name="PaisID"></div>
-      <input type="hidden" id="PaisID" name="PaisID" required>
-    </div>
-
-    <div class="form-group">
-      <label for="Estado">Estado:</label>
-      <div id="EstadoInput" name="EstadoID"></div>
-      <input type="hidden" id="EstadoID" name="EstadoID" required>
+      <label for="UsuarioID">UsuarioID:</label>
+      <div id="UsuarioIDInput"></div>
+      <input type="hidden" id="UsuarioID" name="UsuarioID" required>
     </div>
 
     <div class="enviar">
-      <button type="submit" class="btn btn-azul">Agregar Ubicación</button>
+      <button type="submit" class="btn btn-azul">Agregar Asistente</button>
     </div>
   </form>
 
@@ -66,54 +50,16 @@
     $(function () {
       DevExpress.localization.locale('es');
 
-      $("#LugarInput").dxTextBox({
-        placeholder: "Lugar",
+      $("#UsuarioIDInput").dxNumberBox({
+        placeholder: "Ingresa el ID del Usuario",
+        min: 0,
+        showSpinButtons: true,
         onValueChanged: function (e) {
-          $("#Lugar").val(e.value);
+          $("#UsuarioID").val(e.value);
         }
       });
-
-      $("#CoordenadasInput").dxTextBox({
-        placeholder: "Coordenadas",
-        onValueChanged: function (e) {
-          $("#Coordenadas").val(e.value);
-        }
-      });
-
-
-    const countryData = {{{ json countryData }}};
-    const stateData = {{{ json stateData }}};
-    $("#PaisInput").dxSelectBox({
-      dataSource: countryData,
-      valueExpr: "Id",
-      displayExpr: "Description",
-      placeholder: "Selecciona una opción",
-      showClearButton: true,
-      onValueChanged: function (e) {
-        $("#PaisID").val(e.value);
-      $("#EstadoInput").dxSelectBox("option", "value", null); // Limpiar el valor de estado
-      $("#EstadoID").val(""); // Limpiar el campo oculto de estado
-
-      if (e.value === 1) { // Reemplaza con el ID del país
-        $("#EstadoInput").dxSelectBox("option", "disabled", false); // Habilitar EstadoInput
-      } else {
-        $("#EstadoInput").dxSelectBox("option", "disabled", true); // Deshabilitar EstadoInput
-      }
-      }
-    });
-
-
-    $("#EstadoInput").dxSelectBox({
-      dataSource: stateData,
-      valueExpr: "Id",
-      displayExpr: "Description",
-      placeholder: "Selecciona una opción",
-      showClearButton: true,
-      disabled: true,
-      onValueChanged: function (e) {
-        $("#EstadoID").val(e.value);
-      }
-    });
     });
   </script>
 </body>
+
+</html>

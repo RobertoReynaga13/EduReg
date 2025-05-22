@@ -84,5 +84,6 @@ class AuthRepository extends IAuthRepository {
       throw error;
     }
   }
+
 }
 module.exports = new AuthRepository();

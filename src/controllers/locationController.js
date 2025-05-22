@@ -12,25 +12,23 @@ class locationController {
     }
   }
   async newLocation(req, res) {
-    const catCountry = await catalogService.getCatCountries();
-    const catState = await catalogService.getCatStates();
-    res.render('ubicaciones/nuevo', { countryData: catCountry.message, stateData: catState.message, user: req.user.userId, tipousuario: req.user.tipousuario });
+
+    res.render('ubicaciones/nuevo', { user: req.user.userId, tipousuario: req.user.tipousuario, username: req.user.username, username: req.user.username });
   }
   async postLocation(req, res) {
     const {
-      UbicacionID,
-      Lugar,
-      Coordenadas,
-      PaisID,
-      EstadoID
+
+      UsuarioID,
+
     } = req.body;
 
-    const newLocation = new LocationModel(
-      UbicacionID,
-      Lugar,
-      Coordenadas,
-      PaisID,
-      EstadoID
+    const usuarioID = parseInt(UsuarioID)
+    const newLocation = new LocationModel({
+      AsistenteID: null,
+      UsuarioID: usuarioID,
+      Nombre: null,
+      Correo:null
+    }
     );
 
     await locationService.postLocation(newLocation);

@@ -9,11 +9,8 @@ class LocationRepository extends ILocationRepository {
       const request = pool.request();
       const result = await request.execute('sp_GET_AsistentesExternos');
       console.log(result);
-      return result.recordset.map(row => new locationModel(
-        row.AsistenteID,
-        row.Nombre,
-        row.Correo
-      ));
+      return result.recordset.map(row => new locationModel(row)
+      );
     } catch (error) {
         console.error('Err:', error);
         throw error;
@@ -47,17 +44,13 @@ class LocationRepository extends ILocationRepository {
   async postLocation(locationModel) {
     try{
       const pool = await poolPromise;
-      const request = pool.request();
-      request.input('Param1', sql.Int, locationModel.UsuarioID);
-      const result = await request.execute('sp_POST_AsistenteExterno');
-    
-      if(result.recordset && result.recordset.length > 0){
-        const responseValue = result.recordset[0]?.RESPONSE;
-        return responseValue;
-      }
-      return null;
+      const result = await pool.request()
+        .input('Param1', sql.Int, locationModel.UsuarioID)
+        .execute('sp_POST_AsistenteExterno');
+        console.log('Asistente externo añadido correctamente');
+        return result; // Puedes devolver algún resultado si lo necesitas
     }catch(error){
-      console.error('Err:', error);
+      console.error('Error al añadir asistente externo:', error);
       throw error;
     }
   }
@@ -67,18 +60,14 @@ class LocationRepository extends ILocationRepository {
       const pool = await poolPromise;
       // Preparar y ejecutar la consulta para insertar el blog
       const result = await pool.request()
-           .input('Param1', "text")
-           .input('Param2', sql.NVarChar, locationModel.Lugar)
-           .input('Param3', sql.NVarChar, locationModel.Coordenadas)
-           .input('Param4', sql.Int, locationModel.PaisID)
-           .input('Param5', sql.Int, locationModel.EstadoID)
-           .input('Param6', sql.Int, locationModel.UbicacionID)
-          .execute('sp_PUT_Ubicacion');
+           .input('Param1', sql.Int, locationModel.UsuarioID)
+           .input('Param2', sql.NVarChar, locationModel.AsistenteID)
+          .execute('sp_PUT_AsistenteExterno');
 
-      console.log('País añadido correctamente');
+      console.log('Asistente externo actualizado correctamente');
       return result; // Puedes devolver algún resultado si lo necesitas
   } catch (error) {
-      console.error('Error añadiendo el país:', error);
+      console.error('Error actualizando asistente externo:', error);
       throw error;
   }
   }
@@ -88,17 +77,16 @@ class LocationRepository extends ILocationRepository {
         const pool = await poolPromise;
 
         const result = await pool.request()
-            .input('Param1', 'text')
-            .input('Param2', sql.Int, id)
+            .input('Param1', sql.Int, id)
             .execute('sp_DELETE_Ubicacion');
 
         if (result.rowsAffected[0] === 0) {
-            throw new Error(`Ubicacion con ID ${id} no encontrado o no pudo ser eliminado`);
+            throw new Error(`Asistente externo con ID ${id} no encontrado o no pudo ser eliminado`);
         }
 
-        return { message: `Ubicacion con ID ${id} eliminado correctamente.` };
+        return { message: `Asistente externo con ID ${id} eliminado correctamente.` };
     } catch (error) {
-        console.error('Error eliminando la ubicación:', error);
+        console.error('Error eliminando asistente externo:', error);
         throw error;
     }
 }

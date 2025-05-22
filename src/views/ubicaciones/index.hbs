@@ -11,33 +11,7 @@
       columns: [
       { dataField: "AsistenteID", caption: "ID" },
       { dataField: "Nombre", caption: "Nombre"},
-      { dataField: "Correo", caption: "Correo"},
-      {
-        dataField: "AsistenteID",
-        caption: "",
-        cellTemplate: function(container, options) {
-          $('<button>')
-          .text('Editar')
-          .on('click', function() {
-            const itemId = options.data.AsistenteID;
-            window.location.href = '/ubicaciones/editar/' + itemId;
-            })
-            .appendTo(container);
-            }
-            },
-            {
-              dataField: "UbicacionID",
-              caption: "",
-              cellTemplate: function(container, options) {
-                $('<button>')
-                .text('Eliminar')
-                .on('click', function() {
-                  const itemId = options.data.UbicacionID;
-                  window.location.href = '/ubicaciones/eliminar/' + itemId;
-                  })
-                  .appendTo(container);
-                  }
-                  }],
+      { dataField: "Correo", caption: "Correo"}],
                   paging: {
                     pageSize: 10
                 },
